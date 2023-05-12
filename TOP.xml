@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<timeline>
+<name>絶オメガ検証戦</name>
+<description>for Drgaonsong's Reprise Ulitimate</description>
+<author>Mogera</author>
+<locale>JA</locale>
+<zone>The Omega Protocol (Ultimate)</zone>
+<license>CC BY-SA</license>
+<start>0039::戦闘開始！</start>
+<entry>P1</entry>
+
+@{
+	var Job = new string[] {"WHM", "DRK", "GNB", "SCH", "RPR", "NIN", "MCH", "SMN"};
+	var BWJob = new string[] {"DRK", "GNB", "WHM", "SCH", "RPR", "NIN", "MCH", "SMN"};
+	var HWJob = new string[] {"SMN", "DRK", "GNB", "WHM", "SCH", "RPR", "NIN", "MCH"};
+	var BWprioritylist = new string[] {"よん", "いち", "よん", "いち", "でるた", "さん", "にー", "ぶらぼー"};
+	var WCreadingnumber = new string[] {"検知1","検知2","検知3","無職1","無職2","無職3","無職4","無職5"};
+	var SigmaReading = new string[] {"いちばん","にーばん","さんばん","よんばん","ごーばん","ろくばん",};
+	var OmegaReading1 = new string[] {"検知いち","検知にー","いちばん","にーばん","さんばん","よんばん",};
+	var OmegaReading2 = new string[] {"線取りいち","線取りにー","いちばん","にーばん","さんばん","よんばん",};
+}
+
+<s name="P1">
+	<a time="000" text="PHASE1" sync="アナタはアルファであり、ワタシはオメガである。 これは最初であり、最後の検証……記録……開始……"><expressions>
+		@{
+			for(int i=0; i<=7; i++){
+				<set name="WC@(i+1)" value="false"/>
+				<set name="Dynamis@(i+1)" count="0"/>
+				<set name="HWCount@(i+1)" count="0"/>
+			}
+		}
+		<set name="MyWC" value="false"/>
+		<set name="priority" count="0"/>
+		<set name="MyDynamis" count="0"/>
+		<set name="MyHW" count="0"/>
+	</expressions></a>
+	<a time="128" text="goto p2" sync="弱きヒトの特徴を実装し、真なる強きを求めましょう。" goto="P2"/>
+</s>
+
+<t no="1" sync="[mex] gains the effect of サークルプログラム from  for 16.00 Seconds." notice="せんとり" notice-o="22" notice-sync="true"/>
+<t no="1" sync="[mex] gains the effect of サークルプログラム from  for 25.00 Seconds." notice="せんとり" notice-o="32" notice-sync="true"/>
+<t no="1" sync="[mex] gains the effect of サークルプログラム from  for 34.00 Seconds." notice="せんとり" notice-sync="true"/>
+<t no="1" sync="[mex] gains the effect of サークルプログラム from  for 43.00 Seconds." notice="せんとり" notice-o="14" notice-sync="true"/>
+<t no="1" sync="[mex] gains the effect of サークルプログラム from  for 16.00 Seconds." notice="とうふみ" notice-sync="true"/>
+<t no="1" sync="[mex] gains the effect of サークルプログラム from  for 25.00 Seconds." notice="とうふみ" notice-o="12" notice-sync="true"/>
+<t no="1" sync="[mex] gains the effect of サークルプログラム from  for 34.00 Seconds." notice="とうふみ" notice-o="21" notice-sync="true"/>
+<t no="1" sync="[mex] gains the effect of サークルプログラム from  for 43.00 Seconds." notice="とうふみ" notice-o="30" notice-sync="true"/>
+
+<t sync="[mex] gains the effect of 誘導ミサイルP from  for 12.00 Seconds." notice="すてる" notice-sync="true" notice-o="6"/>
+<t sync="[mex] gains the effect of 誘導ミサイルP from  for 18.00 Seconds." notice="すてる" notice-sync="true" notice-o="12"/>
+<t sync="[mex] gains the effect of 誘導ミサイルP from  for 24.00 Seconds." notice="すてる" notice-sync="true" notice-o="18"/>
+<t sync="[mex] gains the effect of 誘導ミサイルP from  for 30.00 Seconds." notice="すてる" notice-sync="true" notice-o="24"/>
+<t sync="[mex] gains the effect of 誘導ミサイルP from  for 12.00 Seconds." notice="もどる" notice-sync="true" notice-o="11"/>
+<t sync="[mex] gains the effect of 誘導ミサイルP from  for 18.00 Seconds." notice="もどる" notice-sync="true" notice-o="17"/>
+<t sync="[mex] gains the effect of 誘導ミサイルP from  for 24.00 Seconds." notice="もどる" notice-sync="true" notice-o="23"/>
+
+
+
+
+<s name="P2">
+<a time="000" text="PHASE2" sync="オメガ starts using ガードプログラム on オメガ."/>
+<a time="150" sync="オメガ:判定……ヒトの姿や行動を模倣することは" goto="P3" />
+</s>
+
+
+<t no="2" sync="^1B:[id8]:[mex]:0000:[id4]:EVAL(VAR['1B_ORIGIN'] + 393, X4):" notice="まる" notice-sync="true" notice-o="7"/>
+<t no="3" sync="^1B:[id8]:[mex]:0000:[id4]:EVAL(VAR['1B_ORIGIN'] + 394, X4):" notice="さんかく" notice-sync="true" notice-o="7"/>
+<t no="4" sync="^1B:[id8]:[mex]:0000:[id4]:EVAL(VAR['1B_ORIGIN'] + 395, X4):" notice="しかく" notice-sync="true" notice-o="7"/>
+<t no="5" sync="^1B:[id8]:[mex]:0000:[id4]:EVAL(VAR['1B_ORIGIN'] + 396, X4):" notice="ばつ" notice-sync="true" notice-o="7"/>
+
+
+<t sync="[mex]に「グリッチ：ミドル」の効果" notice="ミドル" notice-sync="true"/>
+<t sync="[mex]に「グリッチ：ファー」の効果" notice="ファー" notice-sync="true"/>
+
+<s name="P3">
+	<a time="006" text="PHASE3" sync="オメガ:最終解析……戦略戦術ロジックを大幅に変更"><expressions>
+		@{
+			for(int i=0; i<=7; i++){
+				<set name="BWDebuff@(i+1)" value="0"/>
+				<set name="Color@(i+1)" value="None"/>
+				<set name="Bug@(i+1)" value="None"/>
+			}
+		}
+		<set name="ColorFlag" value="false"/>
+		<set name="DebuffSet" value="None"/>
+		<set name="MyBW" value="0"/>
+		<set name="priority" count="0"/>
+		<set name="BWEndFlag" value="false"/>
+	</expressions></a>
+	<a time="25" sync="オメガ starts using ハロー・ワールド"/>
+	@{
+		for(int i=0;i<=7; i++){
+			<a time="35"><expressions>
+				<pre name="Color@(i+1)" value="Red"/>
+				<pre name="Bug@(i+1)" value="Circle"/>
+				<pre name="ColorFlag" value="false"/>
+				<set name="ColorFlag" value="true"/>
+				<set name="DebuffSet" value="RCBS"/>
+			</expressions></a>
+			<a time="35"><expressions>
+				<pre name="Color@(i+1)" value="Red"/>
+				<pre name="Bug@(i+1)" value="Share"/>
+				<pre name="ColorFlag" value="false"/>
+				<set name="ColorFlag" value="true"/>
+				<set name="DebuffSet" value="RSBC"/>
+			</expressions></a>
+		}
+	}
+
+	<a time="35.5" notice="あおさー あかしぇあ"><expressions>
+		<pre name="DebuffSet" value="RSBC"/>
+	</expressions></a>
+	<a time="35.5" notice="あかさー あおしぇあ"><expressions>
+		<pre name="DebuffSet" value="RCBS"/>
+	</expressions></a>
+	<a time="50" notice="あおさー あかしぇあ"><expressions>
+		<pre name="DebuffSet" value="RSBC"/>
+	</expressions></a>
+	<a time="50" notice="あかさー あおしぇあ"><expressions>
+		<pre name="DebuffSet" value="RCBS"/>
+	</expressions></a>
+	<a time="70" notice="あおさー あかしぇあ"><expressions>
+		<pre name="DebuffSet" value="RSBC"/>
+	</expressions></a>
+	<a time="70" notice="あかさー あおしぇあ"><expressions>
+		<pre name="DebuffSet" value="RCBS"/>
+	</expressions></a>
+	<a time="90" notice="あおさー あかしぇあ"><expressions>
+		<pre name="DebuffSet" value="RSBC"/>
+	</expressions></a>
+	<a time="90" notice="あかさー あおしぇあ"><expressions>
+		<pre name="DebuffSet" value="RCBS"/>
+	</expressions></a>
+	<a time="110" notice="あおさー あかしぇあ"><expressions>
+		<pre name="DebuffSet" value="RSBC"/>
+	</expressions></a>
+	<a time="110" notice="あかさー あおしぇあ"><expressions>
+		<pre name="DebuffSet" value="RCBS"/>
+	</expressions></a>
+	<a time="185" sync="オメガ:ビープ……システム強制リブート…… これより" goto="P4" />
+</s>
+
+<t sync="[mex] gains the effect of 狙撃式高出力波動砲"><expressions>
+	<set name="MyBW" value="1"/>
+</expressions></t>
+<t sync="[mex] gains the effect of 狙撃式波動砲"><expressions>
+	<set name="MyBW" value="2"/>
+</expressions></t>
+
+@{
+	for(int i=0;i<=7;i++){
+		<t sync="[@(BWJob[i])] gains the effect of 狙撃式高出力波動砲"><expressions>
+			<set name="BWDebuff@(i+1)" value="1"/>
+		</expressions></t>
+		<t sync="[@(BWJob[i])] gains the effect of 狙撃式波動砲"><expressions>
+			<set name="BWDebuff@(i+1)" value="2"/>
+		</expressions></t>
+		<t no="@(20+2*i)" sync="gains the effect of (狙撃式高出力波動砲|狙撃式波動砲)" sync-count="6"><expressions>
+			<pre name="MyBW" value="1"/>
+			<pre name="BWDebuff@(i+1)" value="1"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		<t no="@(20+2*i)" sync="gains the effect of (狙撃式高出力波動砲|狙撃式波動砲)" sync-count="6"><expressions>
+			<pre name="MyBW" value="2"/>
+			<pre name="BWDebuff@(i+1)" value="2"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		<t no="@(20+2*i)" sync="gains the effect of (狙撃式高出力波動砲|狙撃式波動砲)" sync-count="6"><expressions>
+			<pre name="MyBW" value="0"/>
+			<pre name="BWDebuff@(i+1)" value="0"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		if("[@(BWJob[i])]" == "[mex]"){break;}
+	}
+	for(int i=0; i<=1;i++){	
+		<t no="40" sync="gains the effect of (狙撃式高出力波動砲|狙撃式波動砲)" notice="@BWprioritylist[i]" notice-sync="true" sync-count="6"><expressions>
+			<pre name="priority" count="@(i+1)"/>
+			<pre name="MyBW" value="0"/>
+		</expressions></t>
+		<t no="40" sync="gains the effect of (狙撃式高出力波動砲|狙撃式波動砲)" notice="@BWprioritylist[i+2]" notice-sync="true" sync-count="6"><expressions>
+			<pre name="priority" count="@(i+1)"/>
+			<pre name="MyBW" value="1"/>
+		</expressions></t>
+	}
+	for(int i=0; i<=3;i++){	
+		<t no="40" sync="gains the effect of (狙撃式高出力波動砲|狙撃式波動砲)" notice="@BWprioritylist[i+4]" notice-sync="true" sync-count="6"><expressions>
+			<pre name="priority" count="@(i+1)"/>
+			<pre name="MyBW" value="2"/>
+		</expressions></t>
+	}
+}
+<t no="99" sync="gains the effect of (狙撃式波動砲|狙撃式高出力波動砲)" ><expressions>
+	<set name="priority" count="0"/>
+</expressions></t>
+
+@{
+	for(int i=0; i<=7; i++){
+		<t sync="[@(Job[i])] gains the effect of クリティカルバグ：シェア"><expressions>
+			<set name="Bug@(i+1)" value="Share"/>
+		</expressions></t>
+		<t sync="[@(Job[i])] gains the effect of クリティカルバグ：サークル"><expressions>
+			<set name="Bug@(i+1)" value="Circle"/>
+		</expressions></t>
+		<t sync="[@(Job[i])] gains the effect of クリティカルバグ：デグレード"><expressions>
+			<set name="Color@(i+1)" value="Red"/>
+		</expressions></t>
+	}
+}
+
+
+<t sync="[mex] gains the effect of 検知式波動砲"><expressions>
+	<set name="MyWC" value="true"/>
+</expressions></t>
+@{
+	for(int i=0; i<=7; i++){
+		<t sync="[@(Job[i])] gains the effect of 検知式波動砲"><expressions>
+			<set name="WC@(i+1)" value="true"/>
+		</expressions></t>
+	}
+	for(int i=0; i<=7; i++){
+		<t no="@(10+2*i)" sync="gains the effect of 検知式波動砲" sync-count="3"><expressions>
+			<pre name="MyWC" value="true"/>
+			<pre name="WC@(i+1)" value="true"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		<t no="@(10+2*i)" sync="gains the effect of 検知式波動砲" sync-count="3"><expressions>
+			<pre name="MyWC" value="false"/>
+			<pre name="WC@(i+1)" value="false"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		if("[@(Job[i])]"=="[mex]"){break;}
+	}
+	for(int i=0; i<=2;i++){
+		<t no="40" sync="gains the effect of 検知式波動砲" notice="@(WCreadingnumber[i])" notice-sync="true" sync-count="3"><expressions>
+			<pre name="priority" count="@(i+1)"/>
+			<pre name="MyWC" value="true"/>
+			<set name="priority" count="0"/>
+		</expressions></t>
+	}
+	for(int i=0; i<=4;i++){
+		<t no="40" sync="gains the effect of 検知式波動砲" notice="@(WCreadingnumber[i+3])" notice-sync="true" sync-count="3"><expressions>
+			<pre name="priority" count="@(i+1)"/>
+			<pre name="MyWC" value="false"/>
+			<set name="priority" count="0"/>
+		</expressions></t>
+	}
+}
+<t sync="^14:7B6B" notice="右検知"  notice-sync="true" notice-o="2"/>
+<t sync="^14:7B6C" notice="左検知"  notice-sync="true" notice-o="2"/>
+<t sync="[pc] gains the effect of 検知式波動砲" notice="さん" notice-o="6.5" sync-count="1"/>
+<t sync="[pc] gains the effect of 検知式波動砲" notice="にー" notice-o="7.5" sync-count="1"/>
+<t sync="[pc] gains the effect of 検知式波動砲" notice="いち" notice-o="8.5" sync-count="1"/>
+
+<s name="P4">
+    <a time="010" sync="オメガ:ガガガ……敗北は……容認できない……。" />
+    <a time="015" sync="オメガの「波動砲」" sync-s="-3" sync-e="3" />
+    <a time="021" sync="オメガの「波動砲」" sync-s="-3" sync-e="3" />
+    <a time="023" notice="そと" notice-o="0" />
+    <a time="025" notice="なか" notice-o="0" />
+    <a time="026" sync="オメガの「波動砲」" sync-s="-3" sync-e="3" />
+    <a time="031" sync="オメガの「波動砲」" sync-s="-3" sync-e="3" />
+    <a time="036" sync="オメガの「波動砲」" sync-s="-3" sync-e="3" />
+    <a time="038" notice="そと" notice-o="0" />
+    <a time="041" sync="オメガの「波動砲」" sync-s="-3" sync-e="3" />
+    <a time="042" notice="なか" notice-o="0" />
+    <a time="050" sync="オメガ:強く、もっと前へ……進化の先を、ワタシは見たい……！" goto="P5"/>
+</s>
+<s name="P5">
+    <a text="PHASE5" time="010" sync="オメガF:ガガ……ガガガガ……この力は、いったい……！？" sync-s="-20" sync-e="20" />
+</s>
+<!-- シグマトリガ -->
+@{
+	<t sync="[mex] gains the effect of ハローワールド：ニア from  for 56.00 Seconds." notice="ハロワ ニア" notice-sync="true" notice-o="30"/>
+	<t sync="[mex] gains the effect of ハローワールド：ファー from  for 56.00 Seconds." notice="ハロワ ファー" notice-sync="true" notice-o="30"/>
+
+	for(int i=0;i<=7;i++){
+		<t no="10" sync="gains the effect of ハローワールド：(ファー|ニア) from  for 56.00 Seconds." sync-count="2"><expressions>
+			<pre name="HWCount@(i+1)" count="0"/>
+			<pre name="Dynamis@(i+1)" count="1"/>
+			<pre name="MyDynamis" count="1"/>
+			<pre name="MyHW" count="0"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		<t no="10" sync="gains the effect of ハローワールド：(ファー|ニア) from  for 56.00 Seconds." sync-count="2"><expressions>
+			<pre name="HWCount@(i+1)" count="0"/>
+			<pre name="Dynamis@(i+1)" count="0"/>
+			<pre name="MyDynamis" count="0"/>
+			<pre name="MyHW" count="0"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		if("[@(HWJob[i])]"=="[mex]"){break;}
+	}
+	for(int i=0;i<=7;i++){
+	<t no="3" sync="[@(HWJob[i])] gains the effect of ハローワールド：(ファー|ニア) from  for 56.00 Seconds."><expressions>
+		<set name="HWCount@(i+1)" count="1"/>
+	</expressions></t>
+	}
+	<t no="1" sync="gains the effect of ハローワールド：(ファー|ニア) from  for 56.00 Seconds." sync-count="2"><expressions>
+		<pre name="MyDynamis" count="1"/>
+		<set name="priority" count="0"/>
+	</expressions></t>
+	<t no="1" sync="gains the effect of ハローワールド：(ファー|ニア) from  for 56.00 Seconds." sync-count="2"><expressions>
+		<pre name="MyDynamis" count="0"/>
+		<set name="priority" count="4"/>
+	</expressions></t>
+	<t no="2" sync="[mex] gains the effect of ハローワールド：(ファー|ニア) from  for 56.00 Seconds."><expressions>
+		<set name="MyHW" count="1"/>
+	</expressions></t>
+	for(int i=0; i<=5; i++){
+	<t no="99" sync="gains the effect of ハローワールド：(ファー|ニア) from  for 56.00 Seconds." notice="@(SigmaReading[i])" sync-count="2" notice-o="30" notice-sync="true"><expressions>
+		<pre name="priority" count="@(i+1)"/>
+		<pre name="MyHW" count="0"/>
+	</expressions></t>
+	}
+}
+<!-- シグマトリガ終わり -->
+<!-- オメガ共通 -->
+@{
+	<t sync="starts using コード：＊＊＊ミ＊【オメガ】"><expressions>
+		<set name="MyHW" count="0"/>
+		<set name="priority" count="0"/>
+	</expressions></t>
+
+	for(int i=0;i<=7;i++){
+		<t no="1" sync="starts using コード：＊＊＊ミ＊【オメガ】"><expressions>
+			<set name="HWCount@(i+1)" count="0"/>
+		</expressions></t>
+	}
+
+	<t no="1" sync="[mex] gains the effect of ハローワールド：(ファー|ニア) from  for 32.00 Seconds."><expressions>
+		<set name="MyHW" count="1"/>
+	</expressions></t>
+	<t no="1" sync="[mex] gains the effect of ハローワールド：(ファー|ニア) from  for 50.00 Seconds."><expressions>
+		<set name="MyHW" count="2"/>
+	</expressions></t>
+	for(int i=0;i<=7;i++){
+		<t no="2" sync="[@(HWJob[i])] gains the effect of ハローワールド：(ファー|ニア) from  for 32.00 Seconds."><expressions>
+			<set name="HWCount@(i+1)" count="1"/>
+		</expressions></t>
+		<t no="2" sync="[@(HWJob[i])] gains the effect of ハローワールド：(ファー|ニア) from  for 50.00 Seconds."><expressions>
+			<set name="HWCount@(i+1)" count="2"/>
+		</expressions></t>
+	}
+	<t sync="[mex] gains the effect of ハローワールド：ニア from  for 32.00 Seconds." notice="ニア1" notice-o="22" notice-sync="true"/>
+	<t sync="[mex] gains the effect of ハローワールド：ファー from  for 32.00 Seconds." notice="ファー1" notice-o="22" notice-sync="true"/>
+	<t sync="[mex] gains the effect of ハローワールド：ニア from  for 50.00 Seconds." notice="ニア2" notice-o="40" notice-sync="true"/>
+	<t sync="[mex] gains the effect of ハローワールド：ファー from  for 50.00 Seconds." notice="ファー2" notice-o="40" notice-sync="true"/>
+}
+<!-- オメガ共通終わり -->
+<!-- オメガ1トリガ -->
+@{
+	<t no="2" sync="gains the effect of ハローワールド：(ファー|ニア) from  for (32|50).00 Seconds." sync-count="4"><expressions>
+		<pre name="MyDynamis" count="1"/>
+		<set name="priority" count="2"/>
+	</expressions></t>
+	
+	bool HWsearchflag = false;
+	for(int i=0; i<=7;i++){
+		if(HWsearchflag)
+		{
+			<t no="3" sync="gains the effect of ハローワールド：(ファー|ニア) from  for (32|50).00 Seconds." sync-count="4"><expressions>
+				<pre name="HWCount@(i+1)" count="2"/>
+				<pre name="Dynamis@(i+1)" count="2"/>
+				<set name="priority" count="+1"/>
+			</expressions></t>
+		}
+		if("[@(HWJob[i])]"=="[mex]"){HWsearchflag = true;}
+	}
+	for(int i=0; i<=7;i++){
+		<t no="10" sync="gains the effect of ハローワールド：(ファー|ニア) from  for (32|50).00 Seconds." sync-count="4"><expressions>
+			<pre name="MyDynamis" count="2"/>
+			<pre name="MyHW" count="2"/>
+			<pre name="HWCount@(i+1)" count="2"/>
+			<pre name="Dynamis@(i+1)" count="2"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		<t no="10" sync="gains the effect of ハローワールド：(ファー|ニア) from  for (32|50).00 Seconds." sync-count="4"><expressions>
+			<pre name="MyDynamis" count="2"/>
+			<pre name="MyHW" value="0"/>
+			<pre name="HWCount@(i+1)" count="0"/>
+			<pre name="Dynamis@(i+1)" count="2"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		<t no="10" sync="gains the effect of ハローワールド：(ファー|ニア) from  for (32|50).00 Seconds." sync-count="4"><expressions>
+			<pre name="MyDynamis" count="2"/>
+			<pre name="MyHW" value="0"/>
+			<pre name="HWCount@(i+1)" count="2"/>
+			<pre name="Dynamis@(i+1)" count="2"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		<t no="10" sync="gains the effect of ハローワールド：(ファー|ニア) from  for (32|50).00 Seconds." sync-count="4"><expressions>
+			<pre name="MyDynamis" count="1"/>
+			<pre name="MyHW" count="0"/>
+			<pre name="HWCount@(i+1)" count="0"/>
+			<pre name="Dynamis@(i+1)" count="1"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		<t no="10" sync="gains the effect of ハローワールド：(ファー|ニア) from  for (32|50).00 Seconds." sync-count="4"><expressions>
+			<pre name="MyDynamis" count="1"/>
+			<pre name="MyHW" count="2"/>
+			<pre name="HWCount@(i+1)" count="0"/>
+			<pre name="Dynamis@(i+1)" count="1"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		<t no="10" sync="gains the effect of ハローワールド：(ファー|ニア) from  for (32|50).00 Seconds." sync-count="4"><expressions>
+			<pre name="MyDynamis" count="1"/>
+			<pre name="MyHW" count="0"/>
+			<pre name="HWCount@(i+1)" count="2"/>
+			<pre name="Dynamis@(i+1)" count="1"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		<t no="10" sync="gains the effect of ハローワールド：(ファー|ニア) from  for (32|50).00 Seconds." sync-count="4"><expressions>
+			<pre name="MyDynamis" count="1"/>
+			<pre name="MyHW" count="2"/>
+			<pre name="HWCount@(i+1)" count="2"/>
+			<pre name="Dynamis@(i+1)" count="1"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		if("[@(HWJob[i])]" == "[mex]"){break;}
+	}
+	for(int i=0; i<=5;i++){
+		<t no="99" sync="gains the effect of ハローワールド：(ファー|ニア) from  for (32|50).00 Seconds." sync-count="4" notice="@(OmegaReading1[i])" notice-o="22" notice-sync="true"><expressions>
+			<pre name="MyHW" count="0"/>
+			<pre name="priority" count="@(i+1)"/>
+		</expressions></t>
+		<t no="99" sync="gains the effect of ハローワールド：(ファー|ニア) from  for (32|50).00 Seconds." sync-count="4" notice="@(OmegaReading1[i])" notice-o="22" notice-sync="true"><expressions>
+			<pre name="MyHW" count="2"/>
+			<pre name="priority" count="@(i+1)"/>
+		</expressions></t>
+
+	}
+}
+<!-- オメガ1トリガ終わり -->
+<!-- オメガ2トリガ -->
+@{
+	<t no="2" sync="gains the effect of デュナミスの高揚" sync-count="18"><expressions>
+		<pre name="MyDynamis" count="3"/>
+		<set name="priority" count="0"/>
+	</expressions></t>
+	<t no="2" sync="gains the effect of デュナミスの高揚" sync-count="18"><expressions>
+		<pre name="MyDynamis" count="2"/>
+		<set name="priority" count="2"/>
+	</expressions></t>
+	for(int i=0; i<=7;i++){
+		<t no="3" sync="gains the effect of デュナミスの高揚" sync-count="18"><expressions>
+			<pre name="Dynamis@(i+1)" count="3"/>
+			<pre name="MyDynamis" count="3"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		<t no="3" sync="gains the effect of デュナミスの高揚" sync-count="18"><expressions>
+			<pre name="Dynamis@(i+1)" count="2"/>
+			<pre name="HWCount@(i+1)" count="1"/>
+			<pre name="MyDynamis" count="2"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		<t no="3" sync="gains the effect of デュナミスの高揚" sync-count="18"><expressions>
+			<pre name="Dynamis@(i+1)" count="2"/>
+			<pre name="HWCount@(i+1)" count="0"/>
+			<pre name="MyDynamis" count="2"/>
+			<set name="priority" count="+1"/>
+		</expressions></t>
+		if("[@(HWJob[i])]"=="[mex]"){break;}
+	}
+	for(int i=0; i<=5;i++){
+		<t no="99" sync="gains the effect of デュナミスの高揚" sync-count="18" notice="@(OmegaReading2[i])" notice-o="0" notice-sync="true"><expressions>
+			<pre name="MyHW" count="0"/>
+			<pre name="priority" count="@(i+1)"/>
+		</expressions></t>
+	}
+	for(int i=0; i<=5;i++){
+		<t no="99" sync="gains the effect of デュナミスの高揚" sync-count="18" notice="@(OmegaReading2[i])" notice-o="0" notice-sync="true"><expressions>
+			<pre name="MyHW" count="1"/>
+			<pre name="priority" count="@(i+1)"/>
+		</expressions></t>
+	}
+}
+<!-- オメガ2トリガ終わり -->
+<!-- P5共通トリガ -->
+<t no="1" sync="[mex] the effect of デュナミスの高揚"><expressions>
+	<set name="MyDynamis" count="+1"/>
+</expressions></t>
+@{
+	for(int i=0;i<=7;i++){
+		<t no="1" sync="[@(HWJob[i])] gains the effect of デュナミスの高揚"><expressions>
+			<set name="Dynamis@(i+1)" count="+1"/>
+		</expressions></t>
+	}
+}
+<!-- P5共通トリガ終わり -->
+</timeline>
