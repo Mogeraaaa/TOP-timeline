@@ -10,9 +10,9 @@
 <entry>P1</entry>
 
 @{
-	var Job = new string[] {"WHM", "DRK", "GNB", "SCH", "RPR", "NIN", "MCH", "SMN"};
-	var BWJob = new string[] {"DRK", "GNB", "WHM", "SCH", "RPR", "NIN", "MCH", "SMN"};
-	var HWJob = new string[] {"SMN", "DRK", "GNB", "WHM", "SCH", "RPR", "NIN", "MCH"};
+	var Job   = new string[] {"AST", "WAR", "PLD", "NIN", "PCT", "BRD", "SMN", "SGE"};
+	var BWJob = new string[] {"AST", "WAR", "PLD", "NIN", "PCT", "BRD", "SMN", "SGE"};
+	var HWJob = new string[] {"AST", "WAR", "PLD", "NIN", "PCT", "BRD", "SMN", "SGE"};
 	var BWprioritylist = new string[] {"よん", "いち", "よん", "いち", "でるた", "さん", "にー", "ぶらぼー"};
 	var WCreadingnumber = new string[] {"検知1","検知2","検知3","無職1","無職2","無職3","無職4","無職5"};
 	var SigmaReading = new string[] {"いちばん","にーばん","さんばん","よんばん","ごーばん","ろくばん",};
@@ -28,7 +28,17 @@
 				<set name="Dynamis@(i+1)" count="0"/>
 				<set name="HWCount@(i+1)" count="0"/>
 			}
+
+			for(int i=0; i<=7; i++){
+				<set name="BWDebuff@(i+1)" value="0"/>
+				<set name="Color@(i+1)" value="None"/>
+				<set name="Bug@(i+1)" value="None"/>
+			}
 		}
+		<set name="ColorFlag" value="false"/>
+		<set name="DebuffSet" value="None"/>
+		<set name="MyBW" value="0"/>
+		<set name="BWEndFlag" value="false"/>
 		<set name="MyWC" value="false"/>
 		<set name="priority" count="0"/>
 		<set name="MyDynamis" count="0"/>
@@ -74,19 +84,8 @@
 
 <s name="P3">
 	<a time="006" text="PHASE3" sync="オメガ:最終解析……戦略戦術ロジックを大幅に変更"><expressions>
-		@{
-			for(int i=0; i<=7; i++){
-				<set name="BWDebuff@(i+1)" value="0"/>
-				<set name="Color@(i+1)" value="None"/>
-				<set name="Bug@(i+1)" value="None"/>
-			}
-		}
-		<set name="ColorFlag" value="false"/>
-		<set name="DebuffSet" value="None"/>
-		<set name="MyBW" value="0"/>
-		<set name="priority" count="0"/>
-		<set name="BWEndFlag" value="false"/>
 	</expressions></a>
+
 	<a time="25" sync="オメガ starts using ハロー・ワールド"/>
 	@{
 		for(int i=0;i<=7; i++){
@@ -149,10 +148,10 @@
 
 @{
 	for(int i=0;i<=7;i++){
-		<t sync="[@(BWJob[i])] gains the effect of 狙撃式高出力波動砲"><expressions>
+		<t no="@(i)" sync="[@(BWJob[i])] gains the effect of 狙撃式高出力波動砲"><expressions>
 			<set name="BWDebuff@(i+1)" value="1"/>
 		</expressions></t>
-		<t sync="[@(BWJob[i])] gains the effect of 狙撃式波動砲"><expressions>
+		<t no="@(i)" sync="[@(BWJob[i])] gains the effect of 狙撃式波動砲"><expressions>
 			<set name="BWDebuff@(i+1)" value="2"/>
 		</expressions></t>
 		<t no="@(20+2*i)" sync="gains the effect of (狙撃式高出力波動砲|狙撃式波動砲)" sync-count="6"><expressions>
@@ -170,7 +169,7 @@
 			<pre name="BWDebuff@(i+1)" value="0"/>
 			<set name="priority" count="+1"/>
 		</expressions></t>
-		if("[@(BWJob[i])]" == "[mex]"){break;}
+		if(Model.Player.InJob(BWJob[i])){break;}
 	}
 	for(int i=0; i<=1;i++){	
 		<t no="40" sync="gains the effect of (狙撃式高出力波動砲|狙撃式波動砲)" notice="@BWprioritylist[i]" notice-sync="true" sync-count="6"><expressions>
@@ -228,7 +227,7 @@
 			<pre name="WC@(i+1)" value="false"/>
 			<set name="priority" count="+1"/>
 		</expressions></t>
-		if("[@(Job[i])]"=="[mex]"){break;}
+	if(Model.Player.InJob(Job[i])){break;}
 	}
 	for(int i=0; i<=2;i++){
 		<t no="40" sync="gains the effect of 検知式波動砲" notice="@(WCreadingnumber[i])" notice-sync="true" sync-count="3"><expressions>
@@ -268,7 +267,10 @@
 <s name="P5">
     <a text="PHASE5" time="010" sync="オメガF:ガガ……ガガガガ……この力は、いったい……！？" sync-s="-20" sync-e="20" />
 </s>
-<!-- シグマトリガ -->
+<!-- デルタトリガ -->
+	<t sync="[mex] gains the effect of ハローワールド：ニア from  for 44.00 Seconds." notice="ハロワ ニア" notice-sync="true" notice-o="34"/>
+	<t sync="[mex] gains the effect of ハローワールド：ファー from  for 44.00 Seconds." notice="ハロワ ファー" notice-sync="true" notice-o="34"/>
+
 @{
 	<t sync="[mex] gains the effect of ハローワールド：ニア from  for 56.00 Seconds." notice="ハロワ ニア" notice-sync="true" notice-o="30"/>
 	<t sync="[mex] gains the effect of ハローワールド：ファー from  for 56.00 Seconds." notice="ハロワ ファー" notice-sync="true" notice-o="30"/>
@@ -288,7 +290,7 @@
 			<pre name="MyHW" count="0"/>
 			<set name="priority" count="+1"/>
 		</expressions></t>
-		if("[@(HWJob[i])]"=="[mex]"){break;}
+		if(Model.Player.InJob(HWJob[i])){break;}
 	}
 	for(int i=0;i<=7;i++){
 	<t no="3" sync="[@(HWJob[i])] gains the effect of ハローワールド：(ファー|ニア) from  for 56.00 Seconds."><expressions>
@@ -363,8 +365,8 @@
 				<pre name="Dynamis@(i+1)" count="2"/>
 				<set name="priority" count="+1"/>
 			</expressions></t>
-		}
-		if("[@(HWJob[i])]"=="[mex]"){HWsearchflag = true;}
+	}
+
 	}
 	for(int i=0; i<=7;i++){
 		<t no="10" sync="gains the effect of ハローワールド：(ファー|ニア) from  for (32|50).00 Seconds." sync-count="4"><expressions>
@@ -416,7 +418,7 @@
 			<pre name="Dynamis@(i+1)" count="1"/>
 			<set name="priority" count="+1"/>
 		</expressions></t>
-		if("[@(HWJob[i])]" == "[mex]"){break;}
+		if(Model.Player.InJob(HWJob[i])){break;}
 	}
 	for(int i=0; i<=5;i++){
 		<t no="99" sync="gains the effect of ハローワールド：(ファー|ニア) from  for (32|50).00 Seconds." sync-count="4" notice="@(OmegaReading1[i])" notice-o="22" notice-sync="true"><expressions>
@@ -459,7 +461,7 @@
 			<pre name="MyDynamis" count="2"/>
 			<set name="priority" count="+1"/>
 		</expressions></t>
-		if("[@(HWJob[i])]"=="[mex]"){break;}
+	if(Model.Player.InJob(HWJob[i])){break;}
 	}
 	for(int i=0; i<=5;i++){
 		<t no="99" sync="gains the effect of デュナミスの高揚" sync-count="18" notice="@(OmegaReading2[i])" notice-o="0" notice-sync="true"><expressions>
